@@ -183,7 +183,16 @@
     }
     .stats-grid > .lbl, .stats-grid > .num, .stats-grid > .unit { grid-row: auto; }
     .stats-grid > .c1, .stats-grid > .c2, .stats-grid > .c3 { grid-column: 1; padding: 0; border-left: none; }
-    .stats-grid > .lbl.c2, .stats-grid > .lbl.c3 { margin-top: 26px; padding-top: 26px; border-top: 1px solid var(--hairline); }
+    /* DOM 顺序是 lbl×3 → num×3 → unit×3,手机单列要按"组"重排,否则三段各自堆叠 */
+    .stats-grid > .lbl.c1 { order: 1; }
+    .stats-grid > .num.c1 { order: 2; }
+    .stats-grid > .unit.c1 { order: 3; }
+    .stats-grid > .lbl.c2 { order: 4; margin-top: 26px; padding-top: 26px; border-top: 1px solid var(--hairline); }
+    .stats-grid > .num.c2 { order: 5; }
+    .stats-grid > .unit.c2 { order: 6; }
+    .stats-grid > .lbl.c3 { order: 7; margin-top: 26px; padding-top: 26px; border-top: 1px solid var(--hairline); }
+    .stats-grid > .num.c3 { order: 8; }
+    .stats-grid > .unit.c3 { order: 9; }
   }
 
   /* ============ Section head ============ */
