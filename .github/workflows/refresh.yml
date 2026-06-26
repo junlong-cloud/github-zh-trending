@@ -1,0 +1,47 @@
+name: Daily refresh & deploy
+
+on:
+  schedule:
+    # 01:00 UTC = 09:00 Asia/Shanghai
+    - cron: '0 1 * * *'
+  workflow_dispatch:  # 允许在 GitHub Actions 页面手动触发一次
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch trending data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_READ_TOKEN }}
+        run: python fetch_data.py
+
+      - name: Prepare dist directory
+        run: |
+          rm -rf dist
+          mkdir -p dist
+          cp index.html dist/
+          cp data.json dist/
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: ./dist
+          production-deploy: true
+          deploy-message: "Scheduled daily refresh ${{ github.run_number }}"
+          enable-pull-request-comment: false
+          enable-commit-comment: false
+          overwrites-pull-request-comment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 5

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub 中文热门项目榜</title>
+<style>
+  :root {
+    --paper: #ffffff;
+    --paper-soft: #f6f6f7;
+    --ink: #0a0a0a;
+    --ink-soft: #2a2a2c;
+    --muted: #8a8a8e;
+    --hairline: #e3e3e6;
+    --accent: #002FA7;   /* IKB · 克莱因蓝 */
+    --accent-rgb: 0, 47, 167;
+    --mono: "JetBrains Mono", "SF Mono", Consolas, ui-monospace, monospace;
+    --sans: "Helvetica Neue", Inter, "Noto Sans SC", "Microsoft YaHei UI", -apple-system, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--paper); color: var(--ink); }
+  body {
+    font-family: var(--sans);
+    font-weight: 400;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  @media (max-width: 720px) { .wrap { padding: 0 18px; } }
+
+  /* ============ 顶部刊头 ============ */
+  .masthead {
+    border-bottom: 1px solid var(--hairline);
+    padding: 14px 0;
+  }
+  .masthead .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  .masthead .brand { color: var(--ink); }
+  .masthead .brand b { color: var(--accent); font-weight: 700; }
+  .masthead .edition { color: var(--muted); }
+
+  /* ============ Hero ============ */
+  .hero {
+    padding: 64px 0 56px;
+    border-bottom: 1px solid var(--hairline);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+    align-items: end;
+  }
+  .hero-head { grid-column: 1 / 9; }
+  .hero-aside { grid-column: 9 / 13; align-self: end; }
+  @media (max-width: 880px) {
+    .hero-head, .hero-aside { grid-column: 1 / 13; }
+    .hero-aside { display: none; }
+  }
+  .kicker {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .kicker::before {
+    content: "";
+    width: 28px; height: 2px;
+    background: var(--accent);
+  }
+  h1.hero-title {
+    font-size: clamp(44px, 7.4vw, 104px);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    font-weight: 700;
+    margin-bottom: 32px;
+  }
+  h1.hero-title em {
+    font-style: normal;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .hero-sub {
+    font-size: clamp(18px, 1.65vw, 23px);
+    color: var(--ink);
+    font-weight: 500;
+    max-width: 760px;
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+  }
+  .hero-sub .time {
+    font-family: var(--mono);
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 0 2px;
+  }
+  .hero-sub .dim {
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  /* 点阵装饰 · hero 右下 */
+  .dotmat {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background-image: radial-gradient(var(--accent) 1.6px, transparent 1.8px);
+    background-size: 18px 18px;
+    background-position: 0 0;
+    mask-image: linear-gradient(135deg, rgba(0,0,0,0.0) 35%, rgba(0,0,0,1) 100%);
+    -webkit-mask-image: linear-gradient(135deg, rgba(0,0,0,0.0) 35%, rgba(0,0,0,1) 100%);
+    opacity: 0.65;
+  }
+
+  /* ============ Stats(三栏 KPI Tower) ============ */
+  .stats {
+    border-bottom: 1px solid var(--hairline);
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto 1fr auto;
+    column-gap: 0;
+    row-gap: 18px;
+    padding: 56px 0;
+  }
+  .stats-grid > .lbl { grid-row: 1; }
+  .stats-grid > .num { grid-row: 2; align-self: end; }
+  .stats-grid > .unit { grid-row: 3; }
+  .stats-grid > .c1 { grid-column: 1; padding-right: 28px; }
+  .stats-grid > .c2 { grid-column: 2; padding: 0 28px; border-left: 1px solid var(--hairline); }
+  .stats-grid > .c3 { grid-column: 3; padding-left: 28px; border-left: 1px solid var(--hairline); }
+
+  .stats-grid .lbl {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .stats-grid .num {
+    font-size: clamp(44px, 6.2vw, 88px);
+    font-weight: 200;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+  }
+  .stats-grid .num.is-accent { color: var(--accent); }
+  .stats-grid .unit {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 720px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+      row-gap: 6px;
+      padding: 36px 0;
+    }
+    .stats-grid > .lbl, .stats-grid > .num, .stats-grid > .unit { grid-row: auto; }
+    .stats-grid > .c1, .stats-grid > .c2, .stats-grid > .c3 { grid-column: 1; padding: 0; border-left: none; }
+    .stats-grid > .lbl.c2, .stats-grid > .lbl.c3 { margin-top: 26px; padding-top: 26px; border-top: 1px solid var(--hairline); }
+  }
+
+  /* ============ Section head ============ */
+  .section-head {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+    padding: 56px 0 28px;
+    align-items: baseline;
+  }
+  .section-head .t-title {
+    grid-column: 1 / 7;
+    font-size: clamp(28px, 3.4vw, 44px);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+  }
+  .section-head .t-meta {
+    grid-column: 7 / 13;
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  @media (max-width: 720px) {
+    .section-head .t-title, .section-head .t-meta { grid-column: 1 / 13; text-align: left; }
+  }
+
+  /* ============ Ranking list ============ */
+  .list {
+    border-top: 2px solid var(--ink);
+  }
+  .row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+    padding: 28px 0 26px;
+    border-bottom: 1px solid var(--hairline);
+    align-items: start;
+    position: relative;
+  }
+  .row .rk {
+    grid-column: 1 / 3;
+    font-family: var(--mono);
+    font-size: clamp(34px, 4.8vw, 72px);
+    font-weight: 200;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--muted);
+    padding-top: 6px;
+  }
+  .row.t1 .rk, .row.t2 .rk, .row.t3 .rk { color: var(--accent); }
+  .row.t1 .rk { font-weight: 300; }
+
+  .row .body { grid-column: 3 / 10; }
+  .row .meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .lang {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+  }
+  .lang.is-accent { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .date {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .name {
+    font-size: clamp(20px, 2vw, 26px);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .name a {
+    color: var(--ink);
+    text-decoration: none;
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.25s ease, color 0.2s;
+  }
+  .name a:hover { color: var(--accent); background-size: 100% 1px; }
+  .name .owner { color: var(--muted); font-weight: 400; }
+  .desc {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    font-weight: 400;
+    max-width: 640px;
+  }
+
+  .row .stat {
+    grid-column: 10 / 13;
+    text-align: right;
+  }
+  .stat .star {
+    font-family: var(--mono);
+    font-size: clamp(28px, 3.4vw, 48px);
+    font-weight: 200;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .row.t1 .stat .star, .row.t2 .stat .star, .row.t3 .stat .star { color: var(--accent); }
+  .stat .star-lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-top: 6px;
+  }
+  .stat .go {
+    display: inline-block;
+    margin-top: 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 2px;
+  }
+  .stat .go:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  @media (max-width: 720px) {
+    .row { padding: 22px 0; }
+    .row .rk { grid-column: 1 / 13; font-size: 28px; padding-top: 0; margin-bottom: 4px; }
+    .row .body { grid-column: 1 / 13; }
+    .row .stat { grid-column: 1 / 13; text-align: left; margin-top: 12px;}
+    .stat .go { margin-top: 8px; }
+  }
+
+  /* ============ Footer ============ */
+  footer {
+    margin-top: 56px;
+    padding: 28px 0 48px;
+    border-top: 2px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .loading, .error { padding: 80px 0; text-align: center; font-family: var(--mono); color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="wrap row">
+    <div class="brand">ZH<b>·</b>TRENDING / GitHub</div>
+    <div class="edition mono" id="edition">— —</div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-head">
+        <div class="kicker">Chinese GitHub · Weekly Rank</div>
+        <h1 class="hero-title">GitHub<br>中文<em>热门</em>项目榜</h1>
+        <div class="hero-sub" id="hero-sub">—</div>
+      </div>
+      <div class="hero-aside">
+        <div class="dotmat"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-grid" id="stats">
+      <div class="cell"><div class="lbl">Loading</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="section-head">
+    <div class="t-title">本期榜单 / Ranking</div>
+    <div class="t-meta" id="rank-meta">— Entries</div>
+  </div>
+
+  <div class="list" id="list">
+    <div class="loading">Loading data…</div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div id="foot-gen">— —</div>
+  <div>Source / GitHub Search API</div>
+</footer>
+
+<script>
+  async function load() {
+    const list = document.getElementById('list');
+    try {
+      const res = await fetch('data.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('data.json not found');
+      const data = await res.json();
+      render(data);
+    } catch (e) {
+      list.innerHTML = `<div class="error">DATA UNAVAILABLE — ${e.message}</div>`;
+    }
+  }
+
+  function fmt(n) { return Number(n || 0).toLocaleString(); }
+
+  function langClass(lang, isTop) {
+    // 只允许单一锚点色:Top 3 用 accent 填充语言标签,其它一律 ink 描边
+    return isTop ? 'is-accent' : '';
+  }
+
+  function render(data) {
+    const repos = data.repos || [];
+
+    // Edition
+    const d = new Date(data.generated_at);
+    const pad = n => String(n).padStart(2, '0');
+    const edition = `EDITION ${d.getFullYear()}.${pad(d.getMonth()+1)}.${pad(d.getDate())}`;
+    document.getElementById('edition').textContent = edition;
+
+    // Hero sub · 价值主张(单行三段式)
+    document.getElementById('hero-sub').innerHTML =
+      `每日 <span class="time">09:00</span> 刷新,告别盲刷 trending,第一时间锁定热门中文开源项目。`;
+
+    // Stats · 扁平网格,三行(label / num / unit)跨三列对齐底线
+    document.getElementById('stats').innerHTML = `
+      <div class="lbl c1">Rank Count</div>
+      <div class="lbl c2">Total Stars</div>
+      <div class="lbl c3">Top Language</div>
+      <div class="num c1 is-accent">${pad(repos.length)}</div>
+      <div class="num c2">${fmt(data.total_stars)}</div>
+      <div class="num c3">${data.top_language}</div>
+      <div class="unit c1">/ Top Entries</div>
+      <div class="unit c2">/ Aggregate ★</div>
+      <div class="unit c3">/ Most Frequent</div>
+    `;
+
+    document.getElementById('rank-meta').textContent = `${pad(repos.length)} Entries`;
+
+    // Rows
+    const html = repos.map(r => {
+      const topClass = r.rank <= 3 ? `t${r.rank}` : '';
+      const langCls = langClass(r.language, r.rank <= 3);
+      return `
+        <div class="row ${topClass}">
+          <div class="rk">${pad(r.rank)}</div>
+          <div class="body">
+            <div class="meta">
+              <span class="lang ${langCls}">${escapeHtml(r.language)}</span>
+              <span class="date">Created ${r.created_at}</span>
+            </div>
+            <div class="name">
+              <a href="${r.html_url}" target="_blank" rel="noopener"><span class="owner">${escapeHtml(r.owner)} /</span> ${escapeHtml(r.name)}</a>
+            </div>
+            <div class="desc">${escapeHtml(r.description) || '— 暂无简介 —'}</div>
+          </div>
+          <div class="stat">
+            <div class="star">${fmt(r.stars)}</div>
+            <div class="star-lbl">★ Stars</div>
+            <a class="go" href="${r.html_url}" target="_blank" rel="noopener">Open →</a>
+          </div>
+        </div>`;
+    }).join('');
+    document.getElementById('list').innerHTML = html;
+
+    // Footer
+    document.getElementById('foot-gen').textContent =
+      `Generated ${data.generated_at.replace('T',' ')}`;
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str == null ? '' : String(str);
+    return div.innerHTML;
+  }
+
+  load();
+</script>
+
+</body>
+</html>
