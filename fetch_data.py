@@ -42,21 +42,28 @@ API_BASE = "https://api.github.com"
 CJK_PATTERN = re.compile(r'[一-鿿]')
 
 
-def gh_request(url):
+def gh_request(url, max_retries=3):
     req = urllib.request.Request(url)
     req.add_header("Accept", "application/vnd.github+json")
     req.add_header("User-Agent", "github-zh-trending-script")
     if GITHUB_TOKEN:
         req.add_header("Authorization", f"Bearer {GITHUB_TOKEN}")
-    try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            return json.loads(resp.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        body = e.read().decode("utf-8", errors="ignore")
-        print(f"HTTP {e.code} for {url}: {body[:300]}")
-        if e.code == 403:
-            print("可能触发限流,建议设置 GITHUB_TOKEN 环境变量后重试。")
-        raise
+    for attempt in range(1, max_retries + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                return json.loads(resp.read().decode("utf-8"))
+        except urllib.error.HTTPError as e:
+            body = e.read().decode("utf-8", errors="ignore")
+            is_secondary_rate_limit = e.code == 403 and "secondary rate limit" in body.lower()
+            if is_secondary_rate_limit and attempt < max_retries:
+                wait_seconds = 30 * attempt
+                print(f"触发二级限流(secondary rate limit),等待 {wait_seconds}s 后重试 (第 {attempt}/{max_retries} 次)...")
+                time.sleep(wait_seconds)
+                continue
+            print(f"HTTP {e.code} for {url}: {body[:300]}")
+            if e.code == 403:
+                print("可能触发限流,建议设置 GITHUB_TOKEN 环境变量后重试。")
+            raise
 
 
 def has_chinese(text):
@@ -95,7 +102,9 @@ def search_new_repos():
         if not items:
             break
         results.extend(items)
-        time.sleep(0.5)  # 避免太快触发限流
+        # Search API 二级限流是 30 次/分钟(认证)、10 次/分钟(未认证),
+        # 必须 sleep > 2s 才不会被判定为滥用;留够余量用 3s。
+        time.sleep(3)
         if len(results) >= MAX_PAGES * PER_PAGE:
             break
     return results, since
