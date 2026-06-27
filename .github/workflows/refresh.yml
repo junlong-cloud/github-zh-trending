@@ -2,8 +2,9 @@ name: Daily refresh & deploy
 
 on:
   schedule:
-    # 01:00 UTC = 09:00 Asia/Shanghai
-    - cron: '0 1 * * *'
+    # 01:05 UTC ≈ 09:05 Asia/Shanghai
+    # 错开整点(0分)避免 GitHub Actions 高负载时段导致定时任务被延迟/丢弹
+    - cron: '5 1 * * *'
   workflow_dispatch:  # 允许在 GitHub Actions 页面手动触发一次
 
 jobs:
