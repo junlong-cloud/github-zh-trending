@@ -104,7 +104,22 @@ def search_new_repos():
 import urllib.parse  # noqa: E402  (放在文件后部以保持上方逻辑清晰)
 
 
+def load_previous_ranks():
+    """读取上一次生成的 data.json,返回 {full_name: rank} 用于计算涨跌/新增。"""
+    out_path = os.path.join(os.path.dirname(__file__), "data.json")
+    if not os.path.exists(out_path):
+        return {}
+    try:
+        with open(out_path, "r", encoding="utf-8") as f:
+            prev = json.load(f)
+        return {r["full_name"]: r["rank"] for r in prev.get("repos", [])}
+    except Exception:
+        return {}
+
+
 def main():
+    prev_ranks = load_previous_ranks()
+
     print(f"扫描最近 {DAYS_WINDOW} 天创建、按 star 排序的新仓库...")
     repos, since = search_new_repos()
     print(f"共拉取 {len(repos)} 个候选仓库,开始筛选中文项目...")
@@ -133,26 +148,42 @@ def main():
         lang_count[lang] = lang_count.get(lang, 0) + 1
     top_language = max(lang_count, key=lang_count.get) if lang_count else "未知"
 
+    def rank_change(full_name, current_rank):
+        """对比上一次的 rank,返回 (change, prev_rank)。
+        change: 'new' 上次没上榜 / 'up' 排名上升(数字变小) / 'down' 排名下降 / 'same' 不变
+        """
+        prev_rank = prev_ranks.get(full_name)
+        if prev_rank is None:
+            return "new", None
+        if current_rank < prev_rank:
+            return "up", prev_rank
+        if current_rank > prev_rank:
+            return "down", prev_rank
+        return "same", prev_rank
+
+    def build_repo_entry(i, r):
+        change, prev_rank = rank_change(r["full_name"], i + 1)
+        return {
+            "rank": i + 1,
+            "full_name": r["full_name"],
+            "owner": r["owner"]["login"],
+            "name": r["name"],
+            "description": r.get("description") or "",
+            "stars": r["stargazers_count"],
+            "language": r.get("language") or "未知",
+            "created_at": r["created_at"][:10],
+            "html_url": r["html_url"],
+            "change": change,
+            "prev_rank": prev_rank,
+        }
+
     output = {
         "generated_at": datetime.datetime.now().isoformat(timespec="seconds"),
         "since_date": since,
         "days_window": DAYS_WINDOW,
         "total_stars": total_stars,
         "top_language": top_language,
-        "repos": [
-            {
-                "rank": i + 1,
-                "full_name": r["full_name"],
-                "owner": r["owner"]["login"],
-                "name": r["name"],
-                "description": r.get("description") or "",
-                "stars": r["stargazers_count"],
-                "language": r.get("language") or "未知",
-                "created_at": r["created_at"][:10],
-                "html_url": r["html_url"],
-            }
-            for i, r in enumerate(chinese_repos)
-        ],
+        "repos": [build_repo_entry(i, r) for i, r in enumerate(chinese_repos)],
     }
 
     out_path = os.path.join(os.path.dirname(__file__), "data.json")

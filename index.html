@@ -236,18 +236,48 @@
     align-items: start;
     position: relative;
   }
-  .row .rk {
+  .rk-cell {
     grid-column: 1 / 3;
+    padding-top: 6px;
+  }
+  .row .rk {
     font-family: var(--mono);
     font-size: clamp(34px, 4.8vw, 72px);
     font-weight: 200;
     line-height: 0.95;
     letter-spacing: -0.04em;
     color: var(--muted);
-    padding-top: 6px;
+    display: block;
   }
   .row.t1 .rk, .row.t2 .rk, .row.t3 .rk { color: var(--accent); }
   .row.t1 .rk { font-weight: 300; }
+
+  /* 排名涨跌 / 新增徽标 */
+  .chg {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .chg .arrow { font-size: 13px; line-height: 1; }
+  .chg.up { color: var(--accent); }
+  .chg.down { color: var(--ink-soft); }
+  .chg-new {
+    display: inline-block;
+    margin-top: 8px;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+  }
 
   .row .body { grid-column: 3 / 10; }
   .row .meta {
@@ -341,7 +371,9 @@
 
   @media (max-width: 720px) {
     .row { padding: 22px 0; }
-    .row .rk { grid-column: 1 / 13; font-size: 28px; padding-top: 0; margin-bottom: 4px; }
+    .rk-cell { grid-column: 1 / 13; padding-top: 0; margin-bottom: 4px; display: flex; align-items: baseline; gap: 10px; }
+    .row .rk { font-size: 28px; }
+    .chg, .chg-new { margin-top: 0; }
     .row .body { grid-column: 1 / 13; }
     .row .stat { grid-column: 1 / 13; text-align: left; margin-top: 12px;}
     .stat .go { margin-top: 8px; }
@@ -430,6 +462,22 @@
 
   function fmt(n) { return Number(n || 0).toLocaleString(); }
 
+  function changeBadge(r) {
+    const change = r.change;
+    if (change === 'new') {
+      return `<span class="chg-new">New</span>`;
+    }
+    if (change === 'up') {
+      const delta = r.prev_rank - r.rank;
+      return `<span class="chg up"><span class="arrow">▲</span>${delta}</span>`;
+    }
+    if (change === 'down') {
+      const delta = r.rank - r.prev_rank;
+      return `<span class="chg down"><span class="arrow">▼</span>${delta}</span>`;
+    }
+    return ''; // same:不显示徽标
+  }
+
   function langClass(lang, isTop) {
     // 只允许单一锚点色:Top 3 用 accent 填充语言标签,其它一律 ink 描边
     return isTop ? 'is-accent' : '';
@@ -469,7 +517,10 @@
       const langCls = langClass(r.language, r.rank <= 3);
       return `
         <div class="row ${topClass}">
-          <div class="rk">${pad(r.rank)}</div>
+          <div class="rk-cell">
+            <span class="rk">${pad(r.rank)}</span>
+            ${changeBadge(r)}
+          </div>
           <div class="body">
             <div class="meta">
               <span class="lang ${langCls}">${escapeHtml(r.language)}</span>

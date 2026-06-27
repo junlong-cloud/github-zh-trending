@@ -11,7 +11,7 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write  # 需要把新的 data.json 写回仓库,留作下次对比涨跌的基准
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,6 +25,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_READ_TOKEN }}
         run: python fetch_data.py
+
+      - name: Commit updated data.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          git diff --staged --quiet || git commit -m "data: 自动刷新榜单 (run ${{ github.run_number }})"
+          git push
 
       - name: Prepare dist directory
         run: |
