@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-06-27T09:49:33",
+  "generated_at": "2026-06-27T01:53:50",
   "since_date": "2026-06-20",
   "days_window": 7,
-  "total_stars": 4912,
+  "total_stars": 4915,
   "top_language": "JavaScript",
   "repos": [
     {
@@ -24,12 +24,12 @@
       "owner": "Yu9191",
       "name": "wloc",
       "description": "修改 Apple 网络定位（gs-loc）返回坐标 · 支持 Surge / Quantumult X / Loon / Stash · 快捷指令一键设置/恢复定位",
-      "stars": 460,
+      "stars": 462,
       "language": "JavaScript",
       "created_at": "2026-06-24",
       "html_url": "https://github.com/Yu9191/wloc",
-      "change": "up",
-      "prev_rank": 5
+      "change": "same",
+      "prev_rank": 2
     },
     {
       "rank": 3,
@@ -41,8 +41,8 @@
       "language": "TypeScript",
       "created_at": "2026-06-22",
       "html_url": "https://github.com/HKUDS/AgentSpace",
-      "change": "up",
-      "prev_rank": 4
+      "change": "same",
+      "prev_rank": 3
     },
     {
       "rank": 4,
@@ -54,8 +54,8 @@
       "language": "JavaScript",
       "created_at": "2026-06-23",
       "html_url": "https://github.com/goehou/tabbit-toy",
-      "change": "up",
-      "prev_rank": 6
+      "change": "same",
+      "prev_rank": 4
     },
     {
       "rank": 5,
@@ -63,12 +63,12 @@
       "owner": "WangJunqing-coder",
       "name": "huasheng13-skill",
       "description": "基于花生十三公开教学体系、课程资料、历年正题整理得到的skill。",
-      "stars": 303,
+      "stars": 304,
       "language": "未知",
       "created_at": "2026-06-22",
       "html_url": "https://github.com/WangJunqing-coder/huasheng13-skill",
-      "change": "up",
-      "prev_rank": 8
+      "change": "same",
+      "prev_rank": 5
     },
     {
       "rank": 6,
@@ -80,8 +80,8 @@
       "language": "TypeScript",
       "created_at": "2026-06-24",
       "html_url": "https://github.com/amplifthq/opentag",
-      "change": "up",
-      "prev_rank": 9
+      "change": "same",
+      "prev_rank": 6
     },
     {
       "rank": 7,
@@ -106,8 +106,8 @@
       "language": "JavaScript",
       "created_at": "2026-06-22",
       "html_url": "https://github.com/byJoey/cfnew-deployer",
-      "change": "new",
-      "prev_rank": null
+      "change": "same",
+      "prev_rank": 8
     },
     {
       "rank": 9,
@@ -119,8 +119,8 @@
       "language": "Python",
       "created_at": "2026-06-23",
       "html_url": "https://github.com/dama-cyber/Casting-Workflow",
-      "change": "up",
-      "prev_rank": 10
+      "change": "same",
+      "prev_rank": 9
     },
     {
       "rank": 10,
@@ -132,8 +132,8 @@
       "language": "Python",
       "created_at": "2026-06-26",
       "html_url": "https://github.com/Pluviobyte/video-production-skills",
-      "change": "new",
-      "prev_rank": null
+      "change": "same",
+      "prev_rank": 10
     }
   ]
 }
