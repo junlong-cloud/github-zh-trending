@@ -26,6 +26,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_READ_TOKEN }}
         run: python fetch_data.py
 
+      - name: Sync to Feishu Bitable
+        env:
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+        run: python sync_to_feishu.py
+
       - name: Commit updated data.json
         run: |
           git config user.name "github-actions[bot]"
