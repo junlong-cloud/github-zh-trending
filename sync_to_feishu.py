@@ -1,11 +1,17 @@
 """
 GitHub 中文热门项目榜 - 同步到飞书多维表格
 
+这是一张"历史累积榜":只要曾经上过 Top N,就永久留底,不会被删除。
+
 逻辑:
-1. 读取 data.json
+1. 读取 data.json(今天的 Top N)
 2. 用 App ID + App Secret 换取 tenant_access_token
-3. 清空表格里的旧记录
-4. 把当前 Top N 批量写入(全量替换,语义上等价于"每日快照覆盖")
+3. 列出表格里所有已有记录,按"项目全名"建立 full_name -> record_id 映射
+4. 对今天的每个项目:
+   - 之前没记录过 -> 新增一行,打上"首次上榜日期"
+   - 之前记录过 -> 更新它的最新状态(排名/Star数/语言/简介/变化类型/上次排名/更新日期),
+     但"首次上榜日期"保持不变
+5. 不删除任何记录
 
 运行: python sync_to_feishu.py
 环境变量:
@@ -16,7 +22,6 @@ GitHub 中文热门项目榜 - 同步到飞书多维表格
 """
 import os
 import json
-import time
 import urllib.request
 import urllib.error
 
@@ -68,8 +73,9 @@ def get_tenant_access_token():
     return resp["tenant_access_token"]
 
 
-def list_all_record_ids(token):
-    record_ids = []
+def list_existing_records(token):
+    """返回 {项目全名: record_id} 映射,用于判断哪些是新项目。"""
+    mapping = {}
     page_token = None
     while True:
         path = f"/bitable/v1/apps/{BASE_TOKEN}/tables/{TABLE_ID}/records?page_size=100"
@@ -79,38 +85,30 @@ def list_all_record_ids(token):
         if resp.get("code") != 0:
             raise RuntimeError(f"列出记录失败: {resp}")
         items = resp["data"].get("items") or []
-        record_ids.extend(item["record_id"] for item in items)
+        for item in items:
+            full_name = item["fields"].get("项目全名")
+            if full_name:
+                mapping[full_name] = item["record_id"]
         if not resp["data"].get("has_more"):
             break
         page_token = resp["data"].get("page_token")
-    return record_ids
+    return mapping
 
 
-def batch_delete_records(token, record_ids):
-    if not record_ids:
-        return
-    # 单批最多 500,这里数据量小,一次就够
-    path = f"/bitable/v1/apps/{BASE_TOKEN}/tables/{TABLE_ID}/records/batch_delete"
-    resp = http_request("POST", path, {"records": record_ids}, token=token)
-    if resp.get("code") != 0:
-        raise RuntimeError(f"批量删除失败: {resp}")
-
-
-def build_record_fields(repo, snapshot_date):
+def common_fields(repo):
+    """除"首次上榜日期"外,每次都要刷新的字段。"""
     return {
         "排名": repo["rank"],
-        "项目全名": repo["full_name"],
         "owner": repo["owner"],
         "项目名": repo["name"],
         "简介": repo.get("description") or "",
         "Star数": repo["stars"],
         "语言": repo.get("language") or "未知",
         "创建日期": repo.get("created_at") or "",
-        # 该字段被识别为飞书原生「超链接」类型,CellValue 必须是 {text, link} 对象,纯字符串会报 URLFieldConvFail
+        # 该字段是飞书原生「超链接」类型,CellValue 必须是 {text, link} 对象
         "链接": {"text": repo["full_name"], "link": repo["html_url"]},
         "变化类型": repo.get("change") or "same",
         "上次排名": repo.get("prev_rank"),
-        "更新日期": snapshot_date,
     }
 
 
@@ -118,11 +116,28 @@ def batch_create_records(token, repos, snapshot_date):
     if not repos:
         return
     path = f"/bitable/v1/apps/{BASE_TOKEN}/tables/{TABLE_ID}/records/batch_create"
-    records = [{"fields": build_record_fields(r, snapshot_date)} for r in repos]
+    records = []
+    for r in repos:
+        fields = {"项目全名": r["full_name"], "首次上榜日期": snapshot_date, "更新日期": snapshot_date}
+        fields.update(common_fields(r))
+        records.append({"fields": fields})
     resp = http_request("POST", path, {"records": records}, token=token)
     if resp.get("code") != 0:
-        raise RuntimeError(f"批量写入失败: {resp}")
-    return resp["data"]["records"]
+        raise RuntimeError(f"批量新增失败: {resp}")
+
+
+def batch_update_records(token, repo_record_pairs, snapshot_date):
+    if not repo_record_pairs:
+        return
+    path = f"/bitable/v1/apps/{BASE_TOKEN}/tables/{TABLE_ID}/records/batch_update"
+    records = []
+    for repo, record_id in repo_record_pairs:
+        fields = {"更新日期": snapshot_date}
+        fields.update(common_fields(repo))
+        records.append({"record_id": record_id, "fields": fields})
+    resp = http_request("POST", path, {"records": records}, token=token)
+    if resp.get("code") != 0:
+        raise RuntimeError(f"批量更新失败: {resp}")
 
 
 def main():
@@ -139,18 +154,30 @@ def main():
     print("获取 tenant_access_token...")
     token = get_tenant_access_token()
 
-    print("列出旧记录...")
-    old_ids = list_all_record_ids(token)
-    print(f"  共 {len(old_ids)} 条旧记录")
+    print("列出已有记录...")
+    existing = list_existing_records(token)
+    print(f"  历史累计 {len(existing)} 个项目")
 
-    print("删除旧记录...")
-    batch_delete_records(token, old_ids)
-    time.sleep(0.5)
+    new_repos = []
+    update_pairs = []
+    for r in repos:
+        record_id = existing.get(r["full_name"])
+        if record_id:
+            update_pairs.append((r, record_id))
+        else:
+            new_repos.append(r)
 
-    print(f"写入 {len(repos)} 条新记录(快照日期 {snapshot_date})...")
-    batch_create_records(token, repos, snapshot_date)
+    print(f"本次新上榜 {len(new_repos)} 个,已有项目刷新 {len(update_pairs)} 个")
 
-    print("完成。")
+    if new_repos:
+        print("写入新项目...")
+        batch_create_records(token, new_repos, snapshot_date)
+
+    if update_pairs:
+        print("更新已有项目的最新状态...")
+        batch_update_records(token, update_pairs, snapshot_date)
+
+    print("完成,没有任何记录被删除。")
 
 
 if __name__ == "__main__":
