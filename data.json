@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-16T02:25:16",
-  "since_date": "2026-08-09",
+  "generated_at": "2026-08-17T02:23:55",
+  "since_date": "2026-08-10",
   "days_window": 7,
-  "total_stars": 137395,
+  "total_stars": 163742,
   "top_language": "TypeScript",
   "repos": [
     {
@@ -11,7 +11,7 @@
       "owner": "deepseek-ai",
       "name": "deepseek-harness",
       "description": "DeepSeek Harness: Everything is a Plugin.",
-      "stars": 116612,
+      "stars": 134749,
       "language": "TypeScript",
       "created_at": "2026-08-13",
       "html_url": "https://github.com/deepseek-ai/deepseek-harness",
@@ -23,8 +23,8 @@
       "full_name": "anywhere-labs/deepseek-harness-desktop",
       "owner": "anywhere-labs",
       "name": "deepseek-harness-desktop",
-      "description": "为 DeepSeek Harness (DSH) 生态打造的现代化桌面端体验",
-      "stars": 6138,
+      "description": "为 DeepSeek Harness (DSH) 插件生态打造的现代化桌面端解决方案",
+      "stars": 9388,
       "language": "TypeScript",
       "created_at": "2026-08-13",
       "html_url": "https://github.com/anywhere-labs/deepseek-harness-desktop",
@@ -37,12 +37,12 @@
       "owner": "awesome-dsh-plugin",
       "name": "awesome-dsh-plugin",
       "description": "A curated list of plugins for DeepSeek Harness (dsh) · DeepSeek Harness 插件精选列表",
-      "stars": 3086,
+      "stars": 5539,
       "language": "Python",
       "created_at": "2026-08-13",
       "html_url": "https://github.com/awesome-dsh-plugin/awesome-dsh-plugin",
-      "change": "up",
-      "prev_rank": 5
+      "change": "same",
+      "prev_rank": 3
     },
     {
       "rank": 4,
@@ -50,12 +50,12 @@
       "owner": "zhu1090093659",
       "name": "dsh-web-ui",
       "description": "Plugin and skin collection for DeepSeek Harness (DSH) Web UI - task board, git graph, right-side panel, remote mobile UI, pet, live token stats, and skin center.",
-      "stars": 2762,
+      "stars": 3536,
       "language": "TypeScript",
       "created_at": "2026-08-12",
       "html_url": "https://github.com/zhu1090093659/dsh-web-ui",
-      "change": "down",
-      "prev_rank": 3
+      "change": "same",
+      "prev_rank": 4
     },
     {
       "rank": 5,
@@ -63,12 +63,12 @@
       "owner": "xiaobright",
       "name": "dsh-anchored-standard",
       "description": "Two-phase DeepSeek Harness preset: Minimal-aligned bootstrap, then full Standard tools (Project2 98/99)",
-      "stars": 2250,
+      "stars": 3106,
       "language": "JavaScript",
       "created_at": "2026-08-14",
       "html_url": "https://github.com/xiaobright/dsh-anchored-standard",
-      "change": "new",
-      "prev_rank": null
+      "change": "same",
+      "prev_rank": 5
     },
     {
       "rank": 6,
@@ -76,64 +76,64 @@
       "owner": "yjh051108",
       "name": "dsh-routing-suite",
       "description": "dsh-routing-suite — injector + router-standard kit: install the runtime injector first, then the task-aware reasoning-mode router preset (measured P1-P23).",
-      "stars": 1801,
+      "stars": 2939,
       "language": "PowerShell",
       "created_at": "2026-08-14",
       "html_url": "https://github.com/yjh051108/dsh-routing-suite",
-      "change": "new",
-      "prev_rank": null
+      "change": "same",
+      "prev_rank": 6
     },
     {
       "rank": 7,
-      "full_name": "SMNETSTUDIO/WeChat-AI",
-      "owner": "SMNETSTUDIO",
-      "name": "WeChat-AI",
-      "description": "",
-      "stars": 1744,
-      "language": "TypeScript",
-      "created_at": "2026-08-10",
-      "html_url": "https://github.com/SMNETSTUDIO/WeChat-AI",
-      "change": "down",
-      "prev_rank": 4
-    },
-    {
-      "rank": 8,
       "full_name": "ccch1mneyyy/dsh-TUI",
       "owner": "ccch1mneyyy",
       "name": "dsh-TUI",
       "description": "DSH 官方公众号收录的 TUI 补位插件：Claude Code 风，鲸鱼顶栏/实时状态/流式思考/双击 Esc 回滚/上下文进度+TPS。npm 一键装。  DSH official WeChat featured TUI plugin — Claude Code style: whale bar, live status, streaming thoughts, double-Esc rollback, context bar + TPS. npm one-click.",
-      "stars": 1289,
+      "stars": 1586,
       "language": "TypeScript",
       "created_at": "2026-08-13",
       "html_url": "https://github.com/ccch1mneyyy/dsh-TUI",
-      "change": "down",
-      "prev_rank": 7
+      "change": "up",
+      "prev_rank": 8
     },
     {
-      "rank": 9,
+      "rank": 8,
       "full_name": "Small-tailqwq/dsh-deep-whale",
       "owner": "Small-tailqwq",
       "name": "dsh-deep-whale",
       "description": "DSH Web 鲸鱼娘皮肤系列(深海女仆工坊 maid-atelier)——CC BY-NC-SA 4.0",
-      "stars": 918,
+      "stars": 1108,
       "language": "TypeScript",
       "created_at": "2026-08-13",
       "html_url": "https://github.com/Small-tailqwq/dsh-deep-whale",
-      "change": "same",
+      "change": "up",
       "prev_rank": 9
     },
     {
-      "rank": 10,
+      "rank": 9,
       "full_name": "Hisn00w/ASu-skills",
       "owner": "Hisn00w",
       "name": "ASu-skills",
       "description": "简历包装",
-      "stars": 795,
+      "stars": 907,
       "language": "HTML",
       "created_at": "2026-08-12",
       "html_url": "https://github.com/Hisn00w/ASu-skills",
-      "change": "down",
-      "prev_rank": 8
+      "change": "up",
+      "prev_rank": 10
+    },
+    {
+      "rank": 10,
+      "full_name": "alchaincyf/deepseek-harness-orange-book",
+      "owner": "alchaincyf",
+      "name": "deepseek-harness-orange-book",
+      "description": "DeepSeek Harness橙皮书《从开机到拆开》：完整系统提示词、129行启动清单、三份原始会话日志——官方文档没有的一手实测。PDF/EPUB/HTML免费下载",
+      "stars": 884,
+      "language": "HTML",
+      "created_at": "2026-08-14",
+      "html_url": "https://github.com/alchaincyf/deepseek-harness-orange-book",
+      "change": "new",
+      "prev_rank": null
     }
   ]
 }
