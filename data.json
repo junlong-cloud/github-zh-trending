@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-17T02:23:55",
-  "since_date": "2026-08-10",
+  "generated_at": "2026-08-18T02:19:33",
+  "since_date": "2026-08-11",
   "days_window": 7,
-  "total_stars": 163742,
+  "total_stars": 189185,
   "top_language": "TypeScript",
   "repos": [
     {
@@ -11,7 +11,7 @@
       "owner": "deepseek-ai",
       "name": "deepseek-harness",
       "description": "DeepSeek Harness: Everything is a Plugin.",
-      "stars": 134749,
+      "stars": 151343,
       "language": "TypeScript",
       "created_at": "2026-08-13",
       "html_url": "https://github.com/deepseek-ai/deepseek-harness",
@@ -23,8 +23,8 @@
       "full_name": "anywhere-labs/deepseek-harness-desktop",
       "owner": "anywhere-labs",
       "name": "deepseek-harness-desktop",
-      "description": "为 DeepSeek Harness (DSH) 插件生态打造的现代化桌面端解决方案",
-      "stars": 9388,
+      "description": "为 DeepSeek Harness (DSH) 插件生态打造的现代化桌面端解决方案。万物皆「插件」，桌面本身也是「插件」。",
+      "stars": 11916,
       "language": "TypeScript",
       "created_at": "2026-08-13",
       "html_url": "https://github.com/anywhere-labs/deepseek-harness-desktop",
@@ -37,7 +37,7 @@
       "owner": "awesome-dsh-plugin",
       "name": "awesome-dsh-plugin",
       "description": "A curated list of plugins for DeepSeek Harness (dsh) · DeepSeek Harness 插件精选列表",
-      "stars": 5539,
+      "stars": 7689,
       "language": "Python",
       "created_at": "2026-08-13",
       "html_url": "https://github.com/awesome-dsh-plugin/awesome-dsh-plugin",
@@ -46,42 +46,42 @@
     },
     {
       "rank": 4,
-      "full_name": "zhu1090093659/dsh-web-ui",
-      "owner": "zhu1090093659",
-      "name": "dsh-web-ui",
-      "description": "Plugin and skin collection for DeepSeek Harness (DSH) Web UI - task board, git graph, right-side panel, remote mobile UI, pet, live token stats, and skin center.",
-      "stars": 3536,
-      "language": "TypeScript",
-      "created_at": "2026-08-12",
-      "html_url": "https://github.com/zhu1090093659/dsh-web-ui",
-      "change": "same",
-      "prev_rank": 4
-    },
-    {
-      "rank": 5,
-      "full_name": "xiaobright/dsh-anchored-standard",
-      "owner": "xiaobright",
-      "name": "dsh-anchored-standard",
-      "description": "Two-phase DeepSeek Harness preset: Minimal-aligned bootstrap, then full Standard tools (Project2 98/99)",
-      "stars": 3106,
-      "language": "JavaScript",
-      "created_at": "2026-08-14",
-      "html_url": "https://github.com/xiaobright/dsh-anchored-standard",
-      "change": "same",
-      "prev_rank": 5
-    },
-    {
-      "rank": 6,
       "full_name": "yjh051108/dsh-routing-suite",
       "owner": "yjh051108",
       "name": "dsh-routing-suite",
       "description": "dsh-routing-suite — injector + router-standard kit: install the runtime injector first, then the task-aware reasoning-mode router preset (measured P1-P23).",
-      "stars": 2939,
+      "stars": 5434,
       "language": "PowerShell",
       "created_at": "2026-08-14",
       "html_url": "https://github.com/yjh051108/dsh-routing-suite",
-      "change": "same",
+      "change": "up",
       "prev_rank": 6
+    },
+    {
+      "rank": 5,
+      "full_name": "zhu1090093659/dsh-web-ui",
+      "owner": "zhu1090093659",
+      "name": "dsh-web-ui",
+      "description": "Plugin and skin collection for DeepSeek Harness (DSH) Web UI - task board, git graph, right-side panel, remote mobile UI, pet, live token stats, and skin center.",
+      "stars": 4156,
+      "language": "TypeScript",
+      "created_at": "2026-08-12",
+      "html_url": "https://github.com/zhu1090093659/dsh-web-ui",
+      "change": "down",
+      "prev_rank": 4
+    },
+    {
+      "rank": 6,
+      "full_name": "xiaobright/dsh-anchored-standard",
+      "owner": "xiaobright",
+      "name": "dsh-anchored-standard",
+      "description": "Two-phase DeepSeek Harness preset: Minimal-aligned bootstrap, then full Standard tools (Project2 98/99)",
+      "stars": 3436,
+      "language": "JavaScript",
+      "created_at": "2026-08-14",
+      "html_url": "https://github.com/xiaobright/dsh-anchored-standard",
+      "change": "down",
+      "prev_rank": 5
     },
     {
       "rank": 7,
@@ -89,12 +89,12 @@
       "owner": "ccch1mneyyy",
       "name": "dsh-TUI",
       "description": "DSH 官方公众号收录的 TUI 补位插件：Claude Code 风，鲸鱼顶栏/实时状态/流式思考/双击 Esc 回滚/上下文进度+TPS。npm 一键装。  DSH official WeChat featured TUI plugin — Claude Code style: whale bar, live status, streaming thoughts, double-Esc rollback, context bar + TPS. npm one-click.",
-      "stars": 1586,
+      "stars": 1827,
       "language": "TypeScript",
       "created_at": "2026-08-13",
       "html_url": "https://github.com/ccch1mneyyy/dsh-TUI",
-      "change": "up",
-      "prev_rank": 8
+      "change": "same",
+      "prev_rank": 7
     },
     {
       "rank": 8,
@@ -102,12 +102,12 @@
       "owner": "Small-tailqwq",
       "name": "dsh-deep-whale",
       "description": "DSH Web 鲸鱼娘皮肤系列(深海女仆工坊 maid-atelier)——CC BY-NC-SA 4.0",
-      "stars": 1108,
+      "stars": 1260,
       "language": "TypeScript",
       "created_at": "2026-08-13",
       "html_url": "https://github.com/Small-tailqwq/dsh-deep-whale",
-      "change": "up",
-      "prev_rank": 9
+      "change": "same",
+      "prev_rank": 8
     },
     {
       "rank": 9,
@@ -115,12 +115,12 @@
       "owner": "Hisn00w",
       "name": "ASu-skills",
       "description": "简历包装",
-      "stars": 907,
+      "stars": 1159,
       "language": "HTML",
       "created_at": "2026-08-12",
       "html_url": "https://github.com/Hisn00w/ASu-skills",
-      "change": "up",
-      "prev_rank": 10
+      "change": "same",
+      "prev_rank": 9
     },
     {
       "rank": 10,
@@ -128,12 +128,12 @@
       "owner": "alchaincyf",
       "name": "deepseek-harness-orange-book",
       "description": "DeepSeek Harness橙皮书《从开机到拆开》：完整系统提示词、129行启动清单、三份原始会话日志——官方文档没有的一手实测。PDF/EPUB/HTML免费下载",
-      "stars": 884,
+      "stars": 965,
       "language": "HTML",
       "created_at": "2026-08-14",
       "html_url": "https://github.com/alchaincyf/deepseek-harness-orange-book",
-      "change": "new",
-      "prev_rank": null
+      "change": "same",
+      "prev_rank": 10
     }
   ]
 }
