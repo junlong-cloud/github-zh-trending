@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-15T06:05:32",
-  "since_date": "2026-09-08",
+  "generated_at": "2026-09-16T05:55:10",
+  "since_date": "2026-09-09",
   "days_window": 7,
-  "total_stars": 5217,
-  "top_language": "JavaScript",
+  "total_stars": 5360,
+  "top_language": "未知",
   "repos": [
     {
       "rank": 1,
@@ -11,12 +11,12 @@
       "owner": "sumimakito",
       "name": "Mac-Duo",
       "description": "Wish you could bring the iPhone Duo effect to your MacBook?",
-      "stars": 876,
+      "stars": 920,
       "language": "Swift",
       "created_at": "2026-09-10",
       "html_url": "https://github.com/sumimakito/Mac-Duo",
-      "change": "up",
-      "prev_rank": 3
+      "change": "same",
+      "prev_rank": 1
     },
     {
       "rank": 2,
@@ -24,51 +24,51 @@
       "owner": "angusdevgo",
       "name": "IDM_Pro_Tool",
       "description": "IDM激活与状态维护工具",
-      "stars": 698,
+      "stars": 716,
       "language": "C#",
       "created_at": "2026-09-10",
       "html_url": "https://github.com/angusdevgo/IDM_Pro_Tool",
-      "change": "up",
-      "prev_rank": 5
+      "change": "same",
+      "prev_rank": 2
     },
     {
       "rank": 3,
-      "full_name": "eternityspring/reelbench-skills",
-      "owner": "eternityspring",
-      "name": "reelbench-skills",
-      "description": "Learning notes and tooling skills for AI video - AI 视频相关的学习与工具 skill",
-      "stars": 681,
-      "language": "HTML",
-      "created_at": "2026-09-11",
-      "html_url": "https://github.com/eternityspring/reelbench-skills",
-      "change": "up",
-      "prev_rank": 7
-    },
-    {
-      "rank": 4,
-      "full_name": "mizzlelover/gongwen-gbt9704-skill",
-      "owner": "mizzlelover",
-      "name": "gongwen-gbt9704-skill",
-      "description": "信息安全提醒：请勿上传企业禁止对外公开的文件；可在本地或企业内网部署大模型后使用。中文公文排版 Skill：按 GB/T 9704-2012 生成可编辑 DOCX。配套 CEB：https://github.com/mizzlelover/CEB",
-      "stars": 612,
-      "language": "JavaScript",
-      "created_at": "2026-09-09",
-      "html_url": "https://github.com/mizzlelover/gongwen-gbt9704-skill",
-      "change": "up",
-      "prev_rank": 6
-    },
-    {
-      "rank": 5,
       "full_name": "zjwzcx/Awesome-Astra-Embodied-AI",
       "owner": "zjwzcx",
       "name": "Awesome-Astra-Embodied-AI",
       "description": "GPT-6 Astra for embodied AI and robotics.",
-      "stars": 600,
+      "stars": 712,
       "language": "未知",
       "created_at": "2026-09-12",
       "html_url": "https://github.com/zjwzcx/Awesome-Astra-Embodied-AI",
       "change": "up",
-      "prev_rank": 9
+      "prev_rank": 5
+    },
+    {
+      "rank": 4,
+      "full_name": "eternityspring/reelbench-skills",
+      "owner": "eternityspring",
+      "name": "reelbench-skills",
+      "description": "Learning notes and tooling skills for AI video - AI 视频相关的学习与工具 skill",
+      "stars": 698,
+      "language": "HTML",
+      "created_at": "2026-09-11",
+      "html_url": "https://github.com/eternityspring/reelbench-skills",
+      "change": "down",
+      "prev_rank": 3
+    },
+    {
+      "rank": 5,
+      "full_name": "youngyangyang04/llm-master",
+      "owner": "youngyangyang04",
+      "name": "llm-master",
+      "description": "大模型（LLM）全栈学习路线与中文教程🔥：覆盖 Prompt Engineering、RAG、AI Agent、MCP、微调、模型部署、Transformer、AI 编程与大厂面试，从入门到生产实践。",
+      "stars": 508,
+      "language": "未知",
+      "created_at": "2026-09-12",
+      "html_url": "https://github.com/youngyangyang04/llm-master",
+      "change": "new",
+      "prev_rank": null
     },
     {
       "rank": 6,
@@ -76,25 +76,25 @@
       "owner": "yi1108",
       "name": "printfilm",
       "description": "PRINTFILM：AI 科普视频与漫剧创作平台",
-      "stars": 428,
+      "stars": 481,
       "language": "Python",
       "created_at": "2026-09-10",
       "html_url": "https://github.com/yi1108/printfilm",
-      "change": "new",
-      "prev_rank": null
+      "change": "same",
+      "prev_rank": 6
     },
     {
       "rank": 7,
-      "full_name": "deepseek-ai/DeepSelect",
-      "owner": "deepseek-ai",
-      "name": "DeepSelect",
-      "description": "DeepSelect: TopK kernels for DeepSeek Sparse Attention (DSA) and Samplers",
-      "stars": 346,
-      "language": "Cuda",
-      "created_at": "2026-09-09",
-      "html_url": "https://github.com/deepseek-ai/DeepSelect",
-      "change": "up",
-      "prev_rank": 8
+      "full_name": "atria-asi/Atria-Dawn-Preview",
+      "owner": "atria-asi",
+      "name": "Atria-Dawn-Preview",
+      "description": "",
+      "stars": 359,
+      "language": "未知",
+      "created_at": "2026-09-12",
+      "html_url": "https://github.com/atria-asi/Atria-Dawn-Preview",
+      "change": "new",
+      "prev_rank": null
     },
     {
       "rank": 8,
@@ -102,12 +102,12 @@
       "owner": "nhovongoc0-max",
       "name": "meme-radar",
       "description": "Meme雷达开源版：本地只读、多链 Meme 候选扫描与人工复核工具",
-      "stars": 338,
+      "stars": 345,
       "language": "JavaScript",
       "created_at": "2026-09-11",
       "html_url": "https://github.com/nhovongoc0-max/meme-radar",
-      "change": "new",
-      "prev_rank": null
+      "change": "same",
+      "prev_rank": 8
     },
     {
       "rank": 9,
@@ -115,23 +115,23 @@
       "owner": "deepseek-ai",
       "name": "deepseek-recipe",
       "description": "",
-      "stars": 331,
+      "stars": 335,
       "language": "Rust",
       "created_at": "2026-09-10",
       "html_url": "https://github.com/deepseek-ai/deepseek-recipe",
-      "change": "up",
-      "prev_rank": 10
+      "change": "same",
+      "prev_rank": 9
     },
     {
       "rank": 10,
-      "full_name": "zhihui-hu/one-ip",
-      "owner": "zhihui-hu",
-      "name": "one-ip",
-      "description": "瞬息洞察 IP 纯净底色与风险评级。仅需一键探寻，物理坐标、机房源流与代理轨迹尽收眼底。",
-      "stars": 307,
-      "language": "TypeScript",
-      "created_at": "2026-09-09",
-      "html_url": "https://github.com/zhihui-hu/one-ip",
+      "full_name": "Qiuner/birdview",
+      "owner": "Qiuner",
+      "name": "birdview",
+      "description": "Stop letting AI code blind. Map the architecture before every change with Birdview.",
+      "stars": 286,
+      "language": "JavaScript",
+      "created_at": "2026-09-12",
+      "html_url": "https://github.com/Qiuner/birdview",
       "change": "new",
       "prev_rank": null
     }
